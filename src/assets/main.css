@@ -1,0 +1,127 @@
+@import "./base.css";
+
+#app {
+  display: flex;
+  max-width: 900px;
+  margin: 0 auto;
+
+  font-weight: normal;
+  background-image: url("https://i.imgur.com/tHvP756.png");
+  background-size: cover;
+  min-height: 100vh;
+  width: 100vw;
+  color: white;
+}
+
+#app>div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+a {
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  /*flex-wrap: wrap;*/
+}
+
+form button {
+  align-self: flex-end;
+  /* width: max-content; */
+}
+
+/* form button:last-child {
+  margin-top: 4rem;
+} */
+.buttons button {
+  width: 100%
+}
+
+form label,
+form textarea,
+form .headline,
+form>a,
+form>h4,
+form>p,
+form .userAccount,
+form .playerList {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+label {
+  margin-bottom: 0;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select,
+textarea {
+  background: #FFFFFF;
+  border: 0;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  padding-left: .5rem;
+  font-size: 1rem;
+}
+select option {
+  height: 3rem;
+}
+
+textarea {
+  padding: 1rem;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.75rem;
+  white-space: nowrap;
+}
+
+h4 {
+  font-weight: bold;
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.buttons {
+  /* margin-top: 5rem; */
+  gap: 1.5rem;
+  flex-grow: 1;
+  width: unset;
+  flex-wrap: nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: flex-end;
+  width: max-content;
+}
+
+.error {
+  color: #ff616f;
+}
+
+/* .buttons button:last-child {
+  margin-top: 4rem;
+  width: fit-content;
+  align-self: flex-end;
+} */
+button:disabled {
+  opacity: .75;
+  cursor: default;
+}
