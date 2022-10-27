@@ -4,6 +4,11 @@ import GameButton from '../components/GameButton.vue';
 import { useStore } from '../stores/new'
 import Logo from '../components/Logo.vue';
 const store = useStore();
+
+function exit() {
+    window.close()
+}
+
 </script>
 
 
@@ -15,7 +20,7 @@ const store = useStore();
             <GameButton @click.prevent="store.setGameState('login')" text="Login and play" icon="fa-solid:user-lock" />
             
             <GameButton @click.prevent="store.setGameState('register')" text="Register now" icon="icomoon-free:user-plus" />
-            <GameButton class="red" style="width: max-content; align-self: flex-end; margin-top: 3rem;" @click.prevent="$router.go('http://www.google.com')" text="Exit" icon="el:circle-arrow-left" />
+            <GameButton class="red" style="width: max-content; align-self: flex-end; margin-top: 3rem;" @click.prevent="exit" text="Exit" icon="el:circle-arrow-left" />
 
         </div>
     </div>

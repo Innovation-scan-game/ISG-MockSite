@@ -16,35 +16,27 @@ import GameView from "./views/GameView.vue";
 import AddConclusionView from "./views/AddConclusionView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import EndGameView from "./views/EndGameView.vue";
+import { useRouter, useRoute } from 'vue-router'
+import GameButton from "./components/GameButton.vue";
+import IconHeadline from "./components/IconHeadline.vue";
+const router = useRouter();
+
 const store = useStore();
 const { gameState, jwt, signalConnection, sessionInfo } = storeToRefs(store)
 let connection = null;
 console.log("gs", gameState)
 onUnmounted(() => {
-  http.fetch('/api/debug/dc', {
-    method: 'POST',
-    headers: authHeaders.value
-  })
-  console.log("unmounting")
+  console.log("onUnmounted")
   connection.off("newConnection", onNewConnection);
-
   connection.off("readyStateChanged", onReadyStateChange);
-
   connection.off("newPlayer", onNewPlayer);
-
   connection.off("playerLeft", onPlayerLeft);
-
   connection.off("startGame", onGameStarted);
-
   connection.off("newMessage", onNewMessage);
-
   connection.off("newAnswer", onNewAnswer);
-
   connection.off("nextRound", onNextRound);
-
   connection.off("endSession", onEndSession);
   connection.stop();
-
 });
 
 if (store.jwt !== "") {
@@ -121,6 +113,7 @@ function onNewConnection(id) {
 function onClose() {
   console.log("connection closed")
   store.setConnectionId("");
+  store.setConnection(null);
 }
 
 function onReadyStateChange(user) {
@@ -147,8 +140,8 @@ function onGameStarted(gameInfo) {
 function onNewMessage(user, cardIndex, message) {
   store.addMessage({ user: user, message: message, round: cardIndex });
 }
-function onNewAnswer(user, answer, last) {
-  console.log("OnNewAnswer", user, answer, last)
+function onNewAnswer(user, answer) {
+  console.log("OnNewAnswer", user, answer)
   store.addAnswer({ user: user, answer: answer });
 }
 
@@ -183,10 +176,20 @@ function getComponent() {
   return components[store.gameState];
 }
 
+function reload() {
+  router.go();
+}
 </script>
 
 <template>
-  <component :is="components[store.gameState]"></component>
+
+  <div class="disconnected"
+    v-if="!['default', 'login', 'register'].includes(store.gameState) && store.connectionId === ''">
+    <IconHeadline icon="clarity:disconnected-solid" text="You are disconnected!" />
+    <GameButton @click="reload" text="Reload" />
+  </div>
+
+  <component v-else :is="components[store.gameState]"></component>
 </template>
 
 <style>
@@ -194,6 +197,15 @@ function getComponent() {
 
 * {
   font-family: 'Poppins', sans-serif;
+}
+
+.disconnected>div {
+  margin: 3rem;
+}
+
+.disconnected button {
+  align-self: flex-end;
+  width: max-content;
 }
 
 header {
