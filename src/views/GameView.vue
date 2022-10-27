@@ -17,7 +17,9 @@ async function submitAnswer() {
         answerText.value = "";
     })
 }
-
+function onAnswer(answer) {
+    answerText.value = answer;
+}
 </script>
 
 <template>
@@ -26,27 +28,28 @@ async function submitAnswer() {
             icon="heroicons:question-mark-circle-solid" />
 
         <div class="infos">
-            <p>Round {{store.gameInfo.currentRound+1}}/{{store.gameInfo.rounds}}</p>
-            <p>{{store.sessionInfo.players.length}} Players</p>
+            <p>Round {{ store.gameInfo.currentRound + 1 }}/{{ store.gameInfo.rounds }}</p>
+            <p>{{ store.sessionInfo.players.length }} Players</p>
         </div>
 
         <div class="top">
 
-            <h3>Question #{{store.gameInfo.currentRound +1}}</h3>
-            <GameQuestion :card="store.getCurrentCard" @answer="console.log('answwerrrr')" />
+            <h3>Question #{{ store.gameInfo.currentRound + 1 }}</h3>
+            <GameQuestion :card="store.getCurrentCard" @answer="onAnswer" />
 
-            <form v-if="store.answerSubmitted===false">
+            <form v-if="store.answerSubmitted === false">
                 <!-- v-if="store.getCurrentCard.type !== 2"  -->
-                <textarea v-model="answerText" placeholder="Your answer"></textarea>
+                <textarea v-if="store.getCurrentCard.type !== 2" v-model="answerText"
+                    placeholder="Your answer"></textarea>
                 <!-- <input type="text" name="" id=""> -->
-                <GameButton :disabled="answerText===''" class="green" @click.prevent="submitAnswer" text="Submit answer"
+                <GameButton :disabled="answerText === ''" class="green" @click.prevent="submitAnswer" text="Submit answer"
                     icon="fa-solid:check-circle" />
             </form>
             <div v-else v-auto-animate>
                 <Answer v-for="answer in store.answers" :answer="answer" :key="answer.id" />
             </div>
         </div>
-        <ChatWindow v-if="store.answerSubmitted===true" />
+        <ChatWindow v-if="store.answerSubmitted === true" />
         <!-- </section> -->
     </div>
 </template>

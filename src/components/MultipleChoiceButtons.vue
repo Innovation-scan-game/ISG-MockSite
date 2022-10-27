@@ -6,6 +6,7 @@ const selectedAnswer = ref("");
 
 function buttonClick(answer) {
     selectedAnswer.value = answer;
+    emit("answer", answer);
 }
 
 </script>
