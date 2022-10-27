@@ -16,7 +16,7 @@ function join() {
 function logOut() {
     store.logOut();
     store.setGameState('default');
-    store.signalConnection.stop();
+    store.getConnection.stop();
 }
 
 async function host() {

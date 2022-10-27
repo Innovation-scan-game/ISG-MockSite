@@ -1,9 +1,17 @@
 # Innovation game prototype
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a vue.js prototype frontend for the Inholland minor group project of group 12.
+To run this locally, the [backend](https://github.com/Innovation-scan-game/ISG-Backend/tree/develop) part is required.
 
-## Icons
-https://icon-sets.iconify.design/fa-solid/user-lock/
+A [live demo](http://innovationgame.azurewebsites.net/api/web/app) can be found here.
+
+This project was bootstrapped via
+```bash
+npm init vue@latest
+```
+
+## Available Icons
+https://icon-sets.iconify.design/
 
 ## Recommended IDE Setup
 

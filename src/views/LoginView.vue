@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import BackButton from '../components/BackButton.vue';
 import GameButton from '../components/GameButton.vue';
 import IconHeadline from '../components/IconHeadline.vue';
@@ -8,6 +8,7 @@ import { storeToRefs } from "pinia";
 import { http } from '../http.js';
 import { useStore } from '../stores/new'
 const store = useStore();
+const feedback = ref("");
 // const { jwt } = storeToRefs(store)
 
 
@@ -15,15 +16,13 @@ const userLogin = reactive({});
 async function login() {
     await http.post('/api/login', userLogin)
         .then(response => {
-            console.log("login res", response)
             store.setJwt(response.data.accessToken);
             store.setGameState('menu');
             store.setUser(response.data.user)
             console.log("axios response", response)
         }).catch(error => {
-            console.log("axios error", error)
+            feedback.value = error.response.data.message;
         })
-    console.log("login", userLogin)
 }
 function forgotPassword() {
     console.log("forgotPassword not yet implemented")
@@ -41,14 +40,15 @@ function forgotPassword() {
                     subText="Login to your IIS-Account to gain access to the hosting section." />
             </div>
             <label>Username
-                <input autofocus type="text" v-model="userLogin.username" id="username" class="form-control"
+                <input autofocus required type="text" v-model="userLogin.username" id="username" class="form-control"
                     placeholder="Username" />
             </label>
 
             <label>Password
-                <input type="password" v-model="userLogin.password" id="password" class="form-control"
+                <input type="password" required v-model="userLogin.password" id="password" class="form-control"
                     placeholder="Password" />
             </label>
+            <p class="error" v-if="feedback != ''">{{ feedback }}</p>
             <a href="#" @click="forgotPassword">Forgot your password? </a>
 
             <GameButton @submit="" text="Login" icon="fa-solid:unlock" />

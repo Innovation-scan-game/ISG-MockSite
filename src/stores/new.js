@@ -61,7 +61,6 @@ export const useStore = defineStore("store", {
             this.sessionInfo = session;
         },
         updatePlayer(player) {
-            console.log('store updatePlayer', player)
             this.sessionInfo.players.find(p => p.id === player.id).ready = player.ready;
         },
         addPlayer(player) {

@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import IconHeadline from '../components/IconHeadline.vue';
 import BackButton from '../components/BackButton.vue';
 import GameButton from '../components/GameButton.vue';
@@ -17,10 +17,13 @@ async function registerAccount() {
         store.setUser(response.data)
         store.setGameState("login")
     }).catch((error) => {
-        console.log("err", error)
         feedback.value = error.response.data.message;
     })
 }
+
+watch(() => userData, () => {
+    feedback.value = "";
+}, { deep: true })
 
 </script>
 
@@ -54,7 +57,7 @@ async function registerAccount() {
                 </select>
             </label>
 
-            <p class="error" v-if="feedback!=''">{{feedback}}</p>
+            <p class="error" v-if="feedback != ''">{{ feedback }}</p>
 
             <GameButton text="Register" icon="wpf:add-user" />
 

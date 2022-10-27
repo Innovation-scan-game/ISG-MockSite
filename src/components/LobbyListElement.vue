@@ -55,7 +55,7 @@ defineProps({
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: #FFC107;
+    background-color: #93A4FF;
     background-size: contain;
     background-position: center;
     /* margin-right: 1rem; */

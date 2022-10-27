@@ -11,7 +11,6 @@ let isReady = false;
 
 
 async function changeReadiness() {
-    console.log("change readiness")
     isReady = !isReady;
     await http.post("/api/session/ready", { ready: isReady })
 }
