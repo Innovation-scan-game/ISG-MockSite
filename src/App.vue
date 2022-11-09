@@ -69,7 +69,7 @@ function createSignalRConnection() {
   // }
 
   var connection = new HubConnectionBuilder()
-    .withUrl("/api?token=" + jwt)
+    .withUrl("/api?token=" + jwt.value)
     .configureLogging(LogLevel.Information)
     .build();
 
@@ -100,6 +100,8 @@ function createSignalRConnection() {
 function onNewConnection(id) {
   console.log("ON NEW CONNECTION");
   store.setConnectionId(id);
+  
+  console.log("connectionId", store.connectionId)
   // reconnect to group if game is in progress
   if (Object.keys(store.sessionInfo).length > 0) {
     http.post('/api/joinGrp', { connectionId: id })

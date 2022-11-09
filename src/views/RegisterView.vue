@@ -12,9 +12,8 @@ const confirmPassword = ref("");
 const feedback = ref("");
 
 async function registerAccount() {
-    await http.post("/api/user/register", userData).then((response) => {
+    await http.post("/api/user", userData).then((response) => {
         console.log("register res", response)
-        store.setUser(response.data)
         store.setGameState("login")
     }).catch((error) => {
         feedback.value = error.response.data.message;

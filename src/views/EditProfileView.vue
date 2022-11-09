@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 import BackButton from '../components/BackButton.vue';
 import IconHeadline from '../components/IconHeadline.vue';
 import GameButton from '../components/GameButton.vue';
@@ -30,7 +30,7 @@ async function editProfile() {
         })
     }
 
-    await http.put("/api/user/edit", editUser).then((response) => {
+    await http.put("/api/user", editUser).then((response) => {
         console.log("edit res", response)
         store.setUser(response.data)
     }).catch((error) => {
@@ -48,6 +48,9 @@ const fileUrl = computed(() => {
     return file.value ? URL.createObjectURL(file.value) : store.user.picture;
 });
 
+watch(() => confirmPassword, () => {
+    feedback.value = "";
+})
 </script>
 
 <template>
@@ -80,7 +83,7 @@ const fileUrl = computed(() => {
                 </label>
             </label>
             <p v-if="feedback!=''">{{feedback}}</p>
-            <GameButton text="Confirm" icon="fa6-solid:user-check" />
+            <GameButton :disabled="feedback != ''" text="Confirm" icon="fa6-solid:user-check" />
 
         </form>
 

@@ -26,7 +26,7 @@ console.log("User account user", props.user);
             <hr>
             <div class="userinfo">
                 <div class="stats">
-                    <p>Account<br/> type: </p>
+                    <p>Account type: </p>
                     <p>Email address: </p>
                     <p>Password: </p>
                 </div>

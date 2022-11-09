@@ -9,8 +9,6 @@ import { useSignalR } from '@dreamonkey/vue-signalr';
 const store = useStore();
 
 function join() {
-
-    console.log("JOIN GAEM")
     store.setGameState('join')
 }
 function logOut() {
